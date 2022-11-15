@@ -1,0 +1,32 @@
+@startuml
+package bulma <<Rectangle>> {
+	package main <<Frame>> {
+		circle main
+	}
+	package pkg <<Frame>> {
+		package cli <<Frame>> {
+			class VERSION << (V,orchid) Variable >>
+			struct RootCMD as "cobra.Command" {
+				+ Use: "bulma"
+				+ Version: VERSION
+				+ Run: func()
+
+				+ Execute()
+			}
+			VERSION --> RootCMD::Version
+			main::main --> RootCMD::Execute
+		}
+		package parser <<Frame>> {
+			interface ParserInterface as "Parser" {
+				+ Parse()
+			}
+			package puml <<Frame>> {
+				struct PumlParser as "Parser" {
+					+ Parse()
+				}
+			}
+		}
+	}
+ParserInterface <|--|> PumlParser
+}
+@enduml
